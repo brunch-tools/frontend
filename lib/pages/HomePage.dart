@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import 'package:brunch_toolkit/utilities/WebSocket.dart';
-import 'package:brunch_toolkit/widgets/AppBarFactory.dart';
+import 'package:brunch_tools/utilities/WebSocket.dart';
+import 'package:brunch_tools/widgets/AppBarFactory.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -61,7 +61,7 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarFactory.getBar(context, "Welcome to the Brunch Toolkit", "Automatic Updates and Tweaks"),
+      appBar: AppBarFactory.getBar(context, "Welcome to the Brunch Tools", "Automatic Updates and Tweaks"),
       bottomNavigationBar: BottomAppBar(
         child: GridView.count(
           crossAxisCount: 1,

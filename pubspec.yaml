@@ -1,8 +1,8 @@
-name: brunch_toolkit
-description: The Brunch Toolkit PWA
+name: brunch_tools
+description: A PWA to Manage Your Brunchbook
 
 publish_to: 'none'
-version: 0.1.1+6
+version: 0.1.2+1
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

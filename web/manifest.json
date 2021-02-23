@@ -1,11 +1,11 @@
 {
-    "name": "Brunch Toolkit",
-    "short_name": "Brunch Toolkit",
+    "name": "Brunch Tools",
+    "short_name": "Brunch Tools",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "The Brunch Toolkit PWA",
+    "description": "A PWA to Manage Your Brunchbook",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

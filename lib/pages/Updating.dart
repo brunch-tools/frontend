@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:brunch_toolkit/main.dart';
-import 'package:brunch_toolkit/utilities/WebSocket.dart';
-import 'package:brunch_toolkit/widgets/AppBarFactory.dart';
+import 'package:brunch_tools/main.dart';
+import 'package:brunch_tools/utilities/WebSocket.dart';
+import 'package:brunch_tools/widgets/AppBarFactory.dart';
 import 'package:flutter/material.dart';
 
 class Updating extends StatefulWidget {
@@ -43,7 +43,7 @@ class UpdatingState extends State<Updating> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarFactory.getBar(context, "An update is in progress.", "Brunch Toolkit will automatically reconnect when complete."),
+      appBar: AppBarFactory.getBar(context, "An update is in progress.", "Brunch Tools will automatically reconnect when complete."),
       body: AppBarFactory.getPagePadding(
         Center(
           child: GridView.count(

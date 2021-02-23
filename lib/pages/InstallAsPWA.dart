@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:brunch_toolkit/pages/SetupPage.dart';
-import 'package:brunch_toolkit/utilities/JsCommons.dart';
-import 'package:brunch_toolkit/utilities/JsLocalStorage.dart';
-import 'package:brunch_toolkit/widgets/AppBarFactory.dart';
+import 'package:brunch_tools/pages/SetupPage.dart';
+import 'package:brunch_tools/utilities/JsCommons.dart';
+import 'package:brunch_tools/utilities/JsLocalStorage.dart';
+import 'package:brunch_tools/widgets/AppBarFactory.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -43,7 +43,7 @@ class InstallAsPWAState extends State<InstallAsPWA> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarFactory.getBar(context, "Welcome to the Brunch Toolkit", "Automatic Updates and Tweaks"),
+      appBar: AppBarFactory.getBar(context, "Welcome to Brunch Tools", "Automatic Updates and Tweaks"),
       body: AppBarFactory.getPagePadding(
         Center(
           child: GridView.count(

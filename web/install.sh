@@ -1,8 +1,8 @@
 #!/bin/bash
 
-echo "####################################"
-echo "Brunch Toolkit Installer (x64/amd64)"
-echo "####################################"
+echo "##################################"
+echo "Brunch Tools Installer (x64/amd64)"
+echo "##################################"
 
 if [ $(whoami) != 'root' ]; then
 	echo "Please run with sudo or doas!"
@@ -29,27 +29,30 @@ mkdir /tmp/brunch-mnt
 mount "$partsource"7 /tmp/brunch-mnt
 
 # Remove Old Versions
-rm /tmp/brunch-mnt/patches/99-brunch_toolkit.sh
-rm /usr/local/bin/brunch-toolkit-daemon
-rm /etc/init/brunch-toolkit-daemon.conf
+rm /tmp/brunch-mnt/patches/99-brunch_tools.sh
+rm /usr/local/bin/brunch-tools-daemon
+rm /etc/init/brunch-tools-daemon.conf
 
 echo "Installation will proceed in 5 seconds, please cancel to end. If you cancel now, remove /tmp/brunch-mnt and /tmp/brunch-setup"
 sleep 5
 
 # Download New Version
+LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/brunch-tools/daemon/releases/latest)
+LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
+ARTIFACT_URL="https://github.com/brunch-tools/daemon/releases/download/$LATEST_VERSION/brunch_tools_daemon"
 mkdir /tmp/brunch-setup
-curl -o /tmp/brunch-setup/99-brunch_toolkit.sh https://brunch.xeu100.com/brunch-toolkit-daemon/99-brunch_toolkit.sh
-curl -o /tmp/brunch-setup/brunch-toolkit-daemon https://brunch.xeu100.com/brunch-toolkit-daemon/brunch-toolkit-daemon
-curl -o /tmp/brunch-setup/brunch-toolkit-daemon.conf https://brunch.xeu100.com/brunch-toolkit-daemon/brunch-toolkit-daemon.conf
+curl -o /tmp/brunch-setup/99-brunch_tools.sh https://brunch.tools/required/99-brunch_tools.sh
+curl -o /tmp/brunch-setup/brunch-tools-daemon https://brunch.tools/required/brunch-tools-daemon
+curl -o /tmp/brunch-setup/brunch-tools-daemon.conf https://brunch.tools/required/brunch-tools-daemon.conf
 
 # Install New Version
-mv /tmp/brunch-setup/99-brunch_toolkit.sh /tmp/brunch-mnt/patches/99-brunch_toolkit.sh
-chown root:root /tmp/brunch-mnt/patches/99-brunch_toolkit.sh
-chmod +x /tmp/brunch-mnt/patches/99-brunch_toolkit.sh
-mv /tmp/brunch-setup/brunch-toolkit-daemon /usr/local/bin/brunch-toolkit-daemon
-chmod +x /usr/local/bin/brunch-toolkit-daemon
-mv /tmp/brunch-setup/brunch-toolkit-daemon.conf /etc/init/brunch-toolkit-daemon.conf
-chown root:root /etc/init/brunch-toolkit-daemon.conf
+mv /tmp/brunch-setup/99-brunch_tools.sh /tmp/brunch-mnt/patches/99-brunch_tools.sh
+chown root:root /tmp/brunch-mnt/patches/99-brunch_tools.sh
+chmod +x /tmp/brunch-mnt/patches/99-brunch_tools.sh
+mv /tmp/brunch-setup/brunch-tools-daemon /usr/local/bin/brunch-tools-daemon
+chmod +x /usr/local/bin/brunch-tools-daemon
+mv /tmp/brunch-setup/brunch-tools-daemon.conf /etc/init/brunch-tools-daemon.conf
+chown root:root /etc/init/brunch-tools-daemon.conf
 
 echo "Unmounting & Clean Up will proceed in 5 seconds, please cancel to end. If you cancel now, remove /tmp/brunch-mnt and /tmp-brunch-setup"
 sleep 5
@@ -61,9 +64,9 @@ rm -rf /tmp/brunch-mnt
 
 # Restart Service
 initctl reload-configuration
-initctl restart brunch-toolkit-daemon
+initctl restart brunch-tools-daemon
 
 echo "####################################"
-echo "Welcome to Brunch Toolkit!"
+echo "Welcome to Brunch Tools!"
 echo "Please head back to the app!"
 echo "####################################"

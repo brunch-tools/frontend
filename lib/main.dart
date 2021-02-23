@@ -1,8 +1,8 @@
-import 'package:brunch_toolkit/pages/HomePage.dart';
-import 'package:brunch_toolkit/pages/SetupPage.dart';
-import 'package:brunch_toolkit/pages/InstallAsPWA.dart';
-import 'package:brunch_toolkit/utilities/JsCommons.dart';
-import 'package:brunch_toolkit/utilities/JsLocalStorage.dart';
+import 'package:brunch_tools/pages/HomePage.dart';
+import 'package:brunch_tools/pages/SetupPage.dart';
+import 'package:brunch_tools/pages/InstallAsPWA.dart';
+import 'package:brunch_tools/utilities/JsCommons.dart';
+import 'package:brunch_tools/utilities/JsLocalStorage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,7 +19,7 @@ void main() {
     themeData = Constants.getDarkTheme();
   }
   runApp(MaterialApp(
-    title: "Brunch Toolkit",
+    title: "Brunch Tools",
     home: goTo,
     theme: themeData,
   ));

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:brunch_toolkit/main.dart';
+import 'package:brunch_tools/main.dart';
 import 'package:web_socket_channel/html.dart';
 
 typedef BoolCallback = void Function(bool);

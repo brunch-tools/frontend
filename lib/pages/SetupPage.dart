@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:brunch_toolkit/main.dart';
-import 'package:brunch_toolkit/pages/HomePage.dart';
-import 'package:brunch_toolkit/utilities/JsLocalStorage.dart';
-import 'package:brunch_toolkit/utilities/WebSocket.dart';
-import 'package:brunch_toolkit/widgets/AppBarFactory.dart';
+import 'package:brunch_tools/main.dart';
+import 'package:brunch_tools/pages/HomePage.dart';
+import 'package:brunch_tools/utilities/JsLocalStorage.dart';
+import 'package:brunch_tools/utilities/WebSocket.dart';
+import 'package:brunch_tools/widgets/AppBarFactory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
@@ -24,7 +24,7 @@ class SetupPageState extends State<SetupPage> {
   bool _unlockButton = false;
   bool _hasShownOldWarning = false;
   String _version = "NONE";
-  String _notice = "The Brunch Toolkit Daemon isn't running yet,\nplease complete setup and come back here.";
+  String _notice = "The Brunch Tools Daemon isn't running yet,\nplease complete setup and come back here.";
 
   @override
   void initState() {
@@ -45,7 +45,7 @@ class SetupPageState extends State<SetupPage> {
         setState(() {
           _unlockButton = false;
           _version = str;
-          _notice = "Your Brunch Toolkit Daemon version, v"+_version+", does not\nmeet the requirements. Please rerun the installer.";
+          _notice = "Your Brunch Tools Daemon version, v"+_version+", does not\nmeet the requirements. Please rerun the installer.";
         });
         if(_hasShownOldWarning)
           return;
@@ -55,7 +55,7 @@ class SetupPageState extends State<SetupPage> {
         setState(() {
           _unlockButton = true;
           _version = str;
-          _notice = "Detected Brunch Toolkit Daemon v"+_version;
+          _notice = "Detected Brunch Tools Daemon v"+_version;
           _timer.cancel();
         });
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(_notice), duration: Duration(seconds: 15),));
@@ -66,7 +66,7 @@ class SetupPageState extends State<SetupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarFactory.getBar(context, "Welcome to the Brunch Toolkit", "Automatic Updates and Tweaks"),
+      appBar: AppBarFactory.getBar(context, "Welcome to Brunch Tools", "Automatic Updates and Tweaks"),
       bottomNavigationBar: BottomAppBar (
         elevation: 0.0,
         child: GridView.count(
@@ -114,11 +114,11 @@ class SetupPageState extends State<SetupPage> {
                   Text("3) Paste the following command, and when it's done, come back to this screen:", overflow: TextOverflow.visible, style: Theme.of(context).textTheme.headline5),
                   GestureDetector(
                     child: Container(
-                      child: Text("curl -Ls https://brunch.xeu100.com/install.sh | sudo bash", style: Theme.of(context).textTheme.headline5),
+                      child: Text("curl -Ls https://brunch.tools/install.sh | sudo bash", style: Theme.of(context).textTheme.headline5),
                       color: Colors.black12,
                     ),
                     onTap: () {
-                      Clipboard.setData(new ClipboardData(text: "curl -Ls https://brunch.xeu100.com/install.sh | sudo bash"));
+                      Clipboard.setData(new ClipboardData(text: "curl -Ls https://brunch.tools/install.sh | sudo bash"));
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Content Copied to Clipboard!")));
                     },
                   )
