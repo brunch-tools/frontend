@@ -65,6 +65,7 @@ rm -rf /tmp/brunch-mnt
 # Restart Service
 initctl reload-configuration
 initctl restart brunch-tools-daemon
+initctl start brunch-tools-daemon
 
 echo "####################################"
 echo "Welcome to Brunch Tools!"
