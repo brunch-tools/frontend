@@ -39,7 +39,7 @@ sleep 5
 # Download New Version
 LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/brunch-tools/daemon/releases/latest)
 LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
-ARTIFACT_URL="https://github.com/brunch-tools/daemon/releases/download/$LATEST_VERSION/brunch_tools_daemon"
+ARTIFACT_URL="https://github.com/brunch-tools/daemon/releases/download/$LATEST_VERSION/brunch-tools-daemon"
 mkdir /tmp/brunch-setup
 curl -o /tmp/brunch-setup/99-brunch_tools.sh https://brunch.tools/required/99-brunch_tools.sh
 curl -o /tmp/brunch-setup/brunch-tools-daemon https://brunch.tools/required/brunch-tools-daemon
