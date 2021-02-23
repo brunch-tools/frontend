@@ -1,0 +1,18 @@
+{
+    "name": "Brunch Toolkit",
+    "short_name": "Brunch Toolkit",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#0175C2",
+    "theme_color": "#0175C2",
+    "description": "The Brunch Toolkit PWA",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "brunch.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

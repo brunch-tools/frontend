@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="The Brunch Toolkit PWA">
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https: 'unsafe-inline' 'unsafe-hashes' 'unsafe-eval'; connect-src 'self' ws://127.0.0.1:15744 https://unpkg.com https://fonts.gstatic.com">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="white">
+  <meta name="apple-mobile-web-app-title" content="The Brunch Toolkit">
+  <link rel="apple-touch-icon" href="icons/brunch.png">
+
+  <link rel="icon" type="image/png" href="brunch.png"/>
+
+  <title>Brunch Toolkit</title>
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+<script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('flutter-first-frame', function () {
+        navigator.serviceWorker.register('flutter_service_worker.js?v=2168315801');
+      });
+    }
+  </script>
+<script src="commons.js" type="application/javascript"></script>
+<script src="main.dart.js" type="application/javascript"></script>
+</body>
+</html>
