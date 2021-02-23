@@ -42,7 +42,7 @@ LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/
 ARTIFACT_URL="https://github.com/brunch-tools/daemon/releases/download/$LATEST_VERSION/brunch-tools-daemon"
 mkdir /tmp/brunch-setup
 curl -o /tmp/brunch-setup/99-brunch_tools.sh https://brunch.tools/required/99-brunch_tools.sh
-curl -o /tmp/brunch-setup/brunch-tools-daemon https://brunch.tools/required/brunch-tools-daemon
+curl -o /tmp/brunch-setup/brunch-tools-daemon $ARTIFACT_URL
 curl -o /tmp/brunch-setup/brunch-tools-daemon.conf https://brunch.tools/required/brunch-tools-daemon.conf
 
 # Install New Version
