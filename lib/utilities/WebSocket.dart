@@ -5,15 +5,16 @@ import 'package:web_socket_channel/html.dart';
 
 typedef BoolCallback = void Function(bool);
 typedef StringCallback = void Function(String);
+typedef MapCallback = void Function(Map);
 
 class WebSocket {
-  static void getDaemonVersion(StringCallback callback) {
+  static void getInfo(MapCallback callback) {
     var channel = HtmlWebSocketChannel.connect(Uri.parse("ws://127.0.0.1:15744"));
     channel.sink.add("{\"action\":\"get_info\"}");
     channel.stream.listen((event) {
       Map json = jsonDecode(event);
       channel.sink.close();
-      callback(json["daemon_version"]);
+      callback(json);
     }).onError((error) {
       callback(null);
     });

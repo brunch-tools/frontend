@@ -1,9 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import 'package:brunch_tools/main.dart';
 import 'package:brunch_tools/utilities/WebSocket.dart';
 import 'package:brunch_tools/widgets/AppBarFactory.dart';
 import 'package:flutter/material.dart';
+
+typedef BoolCallback = void Function(bool);
 
 class Updating extends StatefulWidget {
 
@@ -12,16 +16,47 @@ class Updating extends StatefulWidget {
     return UpdatingState();
   }
 
-  static bool needToolkitUpdate() {
-    return false;
+  static void needsToolkitUpdate(BoolCallback callback) {
+    WebSocket.getInfo((str) async {
+      if(str == null)
+        callback(false);
+      if(str["toolkit_version"] == "NONE")
+        callback(true);
+      int localVersion = int.parse(str["toolkit_version"].replaceAll(".",""));
+      int serverVersion = 0;
+      final response = await http.get('https://raw.githubusercontent.com/WesBosch/brunch-toolkit/main/brunch-toolkit');
+      for(String s in response.body.split("\n")) {
+        if(s.startsWith("TOOLVER=")) {
+          serverVersion=int.parse(s.replaceAll("TOOLVER=\"v", "").replaceAll(RegExp(r'."'), "").replaceAll(".", ""));
+        }
+      }
+      callback(localVersion < serverVersion);
+    });
   }
 
-  static bool needFrameworkUpdate() {
-    return false;
+  static void needsFrameworkUpdate(BoolCallback callback) {
+    WebSocket.getInfo((str) async {
+      if(str == null)
+        callback(false);
+      if(str["brunch_version"] == "NONE")
+        callback(false);
+      final response = await http.get('https://api.github.com/repos/sebanc/brunch/releases/latest');
+      int localVersion = int.parse(str["brunch_version"].replaceFirst("Brunch r","").replaceFirst(RegExp(r'[0-9][0-9] '),""));
+      int serverVersion = int.parse(jsonDecode(response.body)["name"].replaceFirst("Brunch r","").replaceFirst(RegExp(r'[0-9][0-9] stable '),""));
+      callback(localVersion < serverVersion);
+    });
   }
 
-  static bool needDaemonUpdate() {
-    return false;
+  static void needsDaemonUpdate(BoolCallback callback) {
+    WebSocket.getInfo((str) async {
+      if(str == null)
+        callback(false);
+      final response = await http.get('https://api.github.com/repos/brunch-tools/daemon/releases/latest');
+      int localVersion = int.parse(str["daemon_version"].replaceAll(".",""));
+      int serverVersion = int.parse(jsonDecode(response.body)["name"].replaceFirst("Release v","").replaceAll(".",""));
+      print(localVersion.toString()+" "+serverVersion.toString());
+      callback(localVersion < serverVersion);
+    });
   }
 
 }
@@ -44,7 +79,7 @@ class UpdatingState extends State<Updating> {
   void checkSocket() async {
     if(!Register.daemonUpdateComplete)
       return;
-    WebSocket.getDaemonVersion((str) {
+    WebSocket.getInfo((str) {
       if(str == null)
         return;
       timer.cancel();

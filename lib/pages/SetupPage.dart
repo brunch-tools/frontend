@@ -38,13 +38,13 @@ class SetupPageState extends State<SetupPage> {
   }
 
   void checkSocket() async {
-    WebSocket.getDaemonVersion((str) {
+    WebSocket.getInfo((str) {
       if(str == null)
         return;
-      if(int.parse(str.replaceAll('.', '')) < int.parse(Constants.MIN_VERSION.replaceAll('.', ''))) {
+      if(int.parse(str["daemon_version"].replaceAll('.', '')) < int.parse(Constants.MIN_VERSION.replaceAll('.', ''))) {
         setState(() {
           _unlockButton = false;
-          _version = str;
+          _version = str["daemon_version"];
           _notice = "Your Brunch Tools Daemon version, v"+_version+", does not\nmeet the requirements. Please rerun the installer.";
         });
         if(_hasShownOldWarning)
@@ -54,7 +54,7 @@ class SetupPageState extends State<SetupPage> {
       } else {
         setState(() {
           _unlockButton = true;
-          _version = str;
+          _version = str["daemon_version"];
           _notice = "Detected Brunch Tools Daemon v"+_version;
           _timer.cancel();
         });

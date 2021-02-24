@@ -34,10 +34,10 @@ class HomePageState extends State<HomePage> {
   void checkSocket() async {
     final response = await http.get('./required/latest-version.json');
     Map vers = jsonDecode(response.body);
-    WebSocket.getDaemonVersion((str) {
+    WebSocket.getInfo((str) {
       if(str == null)
         return;
-      if(int.parse(str.replaceAll('.', '')) < int.parse(vers["latest"].replaceAll('.', ''))) {
+      if(int.parse(str["daemon_version"].replaceAll('.', '')) < int.parse(vers["latest"].replaceAll('.', ''))) {
         setState(() {
           _unlockButton = true;
           _notice = "An update to v"+vers["latest"]+" is available!";
