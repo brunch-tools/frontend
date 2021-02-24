@@ -32,7 +32,7 @@ class HomePageState extends State<HomePage> {
   }
 
   void checkSocket() async {
-    final response = await http.get('./latest-version.json');
+    final response = await http.get('./required/latest-version.json');
     Map vers = jsonDecode(response.body);
     WebSocket.getDaemonVersion((str) {
       if(str == null)
@@ -61,7 +61,7 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarFactory.getBar(context, "Welcome to the Brunch Tools", "Automatic Updates and Tweaks"),
+      appBar: AppBarFactory.getBar(context, "Welcome to Brunch Tools", "Automatic Updates and Tweaks"),
       bottomNavigationBar: BottomAppBar(
         child: GridView.count(
           crossAxisCount: 1,
