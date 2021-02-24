@@ -12,6 +12,18 @@ class Updating extends StatefulWidget {
     return UpdatingState();
   }
 
+  static bool needToolkitUpdate() {
+    return false;
+  }
+
+  static bool needFrameworkUpdate() {
+    return false;
+  }
+
+  static bool needDaemonUpdate() {
+    return false;
+  }
+
 }
 
 class UpdatingState extends State<Updating> {
@@ -30,7 +42,7 @@ class UpdatingState extends State<Updating> {
   }
 
   void checkSocket() async {
-    if(!Register.updateComplete)
+    if(!Register.daemonUpdateComplete)
       return;
     WebSocket.getDaemonVersion((str) {
       if(str == null)

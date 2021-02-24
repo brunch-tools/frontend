@@ -19,14 +19,30 @@ class WebSocket {
     });
   }
 
+  static void updateToolkit(StringCallback callback) {
+    var channel = HtmlWebSocketChannel.connect(Uri.parse("ws://127.0.0.1:15744"));
+    channel.sink.add("{\"action\":\"update_toolkit\"}");
+    channel.stream.listen((event) {
+      return callback(event);
+    });
+  }
+
+  static void updateFramework(StringCallback callback) {
+    var channel = HtmlWebSocketChannel.connect(Uri.parse("ws://127.0.0.1:15744"));
+    channel.sink.add("{\"action\":\"update_framework\"}");
+    channel.stream.listen((event) {
+      return callback(event);
+    });
+  }
+
   static void updateDaemon() {
     var channel = HtmlWebSocketChannel.connect(Uri.parse("ws://127.0.0.1:15744"));
     channel.sink.add("{\"action\":\"update_daemon\"}");
     channel.stream.listen((event) {
       print(event);
     }).onDone(() {
-      Register.updateComplete = true;
+      Register.daemonUpdateComplete = true;
     });
-    Register.updateComplete = false;
+    Register.daemonUpdateComplete = false;
   }
 }

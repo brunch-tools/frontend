@@ -88,5 +88,5 @@ class Constants {
 }
 
 class Register {
-  static bool updateComplete = false;
+  static bool daemonUpdateComplete = false;
 }
