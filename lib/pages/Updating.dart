@@ -24,8 +24,6 @@ class Updating extends StatefulWidget {
         callback(false, "", "");
         return;
       }
-
-      int localVersion = int.parse(str["toolkit_version"].replaceAll(".",""));
       int serverVersion = 0;
       final response = await http.get('https://raw.githubusercontent.com/WesBosch/brunch-toolkit/main/brunch-toolkit');
       for(String s in response.body.split("\n")) {
@@ -38,6 +36,7 @@ class Updating extends StatefulWidget {
         callback(true, "NONE", ver);
         return;
       }
+      int localVersion = int.parse(str["toolkit_version"].replaceAll(".",""));
       callback(localVersion < serverVersion, "v"+str["toolkit_version"], ver);
     });
   }
