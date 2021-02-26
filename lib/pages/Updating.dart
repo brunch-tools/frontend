@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:brunch_tools/utilities/JsLocalStorage.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:brunch_tools/main.dart';
@@ -214,7 +215,7 @@ class UpdatingState extends State<Updating> {
   }
 
   void beginWithDaemon() async {
-    if(_wantsUpdateDaemon) {
+    if(_wantsUpdateDaemon || JsLocalStorage.get("design-mode") != "true") {
       WebSocket.updateDaemon();
       _timer = Timer.periodic(Duration(seconds: 5), (timer) {
         waitForDaemon();

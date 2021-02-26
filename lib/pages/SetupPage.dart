@@ -28,8 +28,8 @@ class SetupPageState extends State<SetupPage> {
 
   @override
   void initState() {
-    _timer = Timer.periodic(Duration(seconds: 3), (_timer) { checkSocket();});
     super.initState();
+    _timer = Timer.periodic(Duration(seconds: 3), (_timer) { checkSocket();});
   }
 
   @override
@@ -56,7 +56,8 @@ class SetupPageState extends State<SetupPage> {
           _unlockButton = true;
           _version = str["daemon_version"];
           _notice = "Detected Brunch Tools Daemon v"+_version;
-          _timer.cancel();
+          if(_timer != null)
+            _timer.cancel();
         });
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(_notice), duration: Duration(seconds: 15),));
       }
