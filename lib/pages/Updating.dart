@@ -43,7 +43,7 @@ class Updating extends StatefulWidget {
 
   static void needsFrameworkUpdate(UpdateCallback callback) {
     WebSocket.getInfo((str) async {
-      if(str == null || str["framework_version"] == null) {
+      if(str == null || str["brunch_version"] == null) {
         callback(false, "", "");
         return;
       }
@@ -135,7 +135,7 @@ class UpdatingState extends State<Updating> {
                   });
                 }:null,
               ),
-              Text(_canUpdateFramework?"Update the Brunch Framework to "+_toFrameworkVersion+" from "+_currentFrameworkVersion:"There are no framework updates available,\nyou're on "+_currentFrameworkVersion, style: Theme.of(context).textTheme.headline6, overflow: TextOverflow.visible),
+              Text(_canUpdateFramework?"Update the Brunch Framework to\n"+_toFrameworkVersion+" from "+_currentFrameworkVersion:"There are no framework updates available,\nyou're on "+_currentFrameworkVersion, style: Theme.of(context).textTheme.headline6, overflow: TextOverflow.visible),
             ],
           ),
           Row(
