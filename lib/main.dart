@@ -50,7 +50,8 @@ class Constants {
       buttonTheme: ButtonThemeData(
         colorScheme: ColorScheme.dark()
       ),
-      highlightColor: Colors.blue
+      highlightColor: Colors.blue,
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(selectedItemColor: Colors.black, backgroundColor: Colors.white)
     );
   }
 

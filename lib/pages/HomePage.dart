@@ -1,8 +1,3 @@
-import 'dart:async';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-
-import 'package:brunch_tools/utilities/WebSocket.dart';
 import 'package:brunch_tools/widgets/AppBarFactory.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -20,42 +15,9 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
 
-  Timer _timer;
-  bool _unlockButton = false;
-  bool _hasShownOldWarning = false;
-  String _notice = "Grabbing the latest daemon version!";
-
   @override
   void initState() {
-    _timer = Timer.periodic(Duration(seconds: 3), (_timer) { checkSocket();});
     super.initState();
-  }
-
-  void checkSocket() async {
-    final response = await http.get('./required/latest-version.json');
-    Map vers = jsonDecode(response.body);
-    WebSocket.getInfo((str) {
-      if(str == null)
-        return;
-      if(int.parse(str["daemon_version"].replaceAll('.', '')) < int.parse(vers["latest"].replaceAll('.', ''))) {
-        setState(() {
-          _unlockButton = true;
-          _notice = "An update to v"+vers["latest"]+" is available!";
-          _timer.cancel();
-        });
-        if(_hasShownOldWarning)
-          return;
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(_notice), duration: Duration(seconds: 15),));
-        _hasShownOldWarning = true;
-      } else {
-        setState(() {
-          _unlockButton = false;
-          _notice = "You're on the latest daemon!";
-          _timer.cancel();
-        });
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(_notice), duration: Duration(seconds: 15),));
-      }
-    });
   }
 
   @override
@@ -71,15 +33,12 @@ class HomePageState extends State<HomePage> {
             Align(
               child: Container(
                 child: Tooltip(
-                  message: _notice,
+                  message: "Go to the Update management page!",
                   child: MaterialButton(
-                    onPressed: _unlockButton? () {
-                      WebSocket.updateDaemon();
-                      _unlockButton = false;
-                      _notice = "You're on the latest daemon!";
+                    onPressed: () {
                       Navigator.push(context, PageTransition(child: Updating(), type: PageTransitionType.fade));
-                    }:null,
-                    child: Text("Update Daemon"),
+                    },
+                    child: Text("Check for Updates"),
                     color: Theme.of(context).buttonColor,
                     disabledColor: Theme.of(context).disabledColor,
                     autofocus: true,

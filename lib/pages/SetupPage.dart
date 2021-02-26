@@ -67,36 +67,32 @@ class SetupPageState extends State<SetupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarFactory.getBar(context, "Welcome to Brunch Tools", "Automatic Updates and Tweaks"),
-      bottomNavigationBar: BottomAppBar (
+      bottomNavigationBar: BottomNavigationBar(
         elevation: 0.0,
-        child: GridView.count(
-          crossAxisCount: 1,
-          childAspectRatio: MediaQuery.of(context).size.width<995?15:45,
-          padding: EdgeInsets.all(20),
-          shrinkWrap: true,
-          children: [
-            Align(
-              child: Container(
-                child: Tooltip(
-                  message: _notice,
-                  child: MaterialButton(
-                    onPressed: _unlockButton? () {
-                      JsLocalStorage.set("is-installed", "true");
-                      Navigator.push(context, PageTransition(child: HomePage(), type: PageTransitionType.fade));
-                    }:null,
-                    child: Text("Next"),
-                    color: Theme.of(context).buttonColor,
-                    disabledColor: Theme.of(context).disabledColor,
-                    autofocus: true,
-                    height: 50,
-                  ),
-                  padding: EdgeInsets.all(10),
-                ),
-              ),
-              alignment: Alignment.centerRight,
-            ),
-          ],
-        ),
+        onTap: (i) => {
+          if(i==1) {
+            if(_unlockButton) {
+              JsLocalStorage.set("is-installed", "true"),
+              Navigator.push(context, PageTransition(child: HomePage(), type: PageTransitionType.fade)),
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Uh oh! The daemon still isn't reachable! Please give the system a second."),))
+            }
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Uh oh! This feature isn't available yet!"),))
+          }
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.help_outline),
+            tooltip: "Opens a URL to the frontend issues page.",
+            label: "Help"
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.arrow_forward),
+            tooltip: "Continue on with your Brunch journey!",
+            label: "Complete Setup"
+          ),
+        ],
       ),
       body: AppBarFactory.getPagePadding(
         Center(
