@@ -195,27 +195,33 @@ class UpdatingState extends State<Updating> {
 
   void beginWithToolkit() async {
     _isUpdating=true;
-    if(_wantsUpdateToolkit)
+    if(_wantsUpdateToolkit) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Updating the Toolkit!"),));
       WebSocket.updateToolkit((event) {
         print(event);
         beginWithFramework();
       });
+    }
     else
       beginWithFramework();
   }
 
   void beginWithFramework() async {
-    if(_wantsUpdateFramework)
+    if(_wantsUpdateFramework) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Updating the Framework!"),));
       WebSocket.updateToolkit((event) {
         print(event);
         beginWithDaemon();
       });
+    }
     else
       beginWithDaemon();
   }
 
   void beginWithDaemon() async {
     if(_wantsUpdateDaemon || JsLocalStorage.get("design-mode") != "true") {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Updating the Daemon!"),));
       WebSocket.updateDaemon();
       _timer = Timer.periodic(Duration(seconds: 5), (timer) {
         waitForDaemon();
