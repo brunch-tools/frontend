@@ -136,7 +136,7 @@ class UpdatingState extends State<Updating> {
                   });
                 }:null,
               ),
-              Text(_canUpdateFramework?"Update the Brunch Framework to "+_toFrameworkVersion+" from "+_currentFrameworkVersion:"There are no framework updates available, you're on "+_currentFrameworkVersion, style: Theme.of(context).textTheme.headline6, overflow: TextOverflow.visible),
+              Text(_canUpdateFramework?"Update the Brunch Framework to "+_toFrameworkVersion+" from "+_currentFrameworkVersion:"There are no framework updates available,\nyou're on "+_currentFrameworkVersion, style: Theme.of(context).textTheme.headline6, overflow: TextOverflow.visible),
             ],
           ),
           Row(
