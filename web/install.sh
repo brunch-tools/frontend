@@ -46,6 +46,7 @@ curl -L $ARTIFACT_URL > /tmp/brunch-setup/brunch-tools-daemon
 curl -o /tmp/brunch-setup/brunch-tools-daemon.conf https://brunch.tools/required/brunch-tools-daemon.conf
 
 # Install New Version
+mkdir /usr/local/bin
 mv /tmp/brunch-setup/99-brunch_tools.sh /tmp/brunch-mnt/patches/99-brunch_tools.sh
 chown root:root /tmp/brunch-mnt/patches/99-brunch_tools.sh
 chmod +x /tmp/brunch-mnt/patches/99-brunch_tools.sh
