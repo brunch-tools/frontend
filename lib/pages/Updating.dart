@@ -20,14 +20,11 @@ class Updating extends StatefulWidget {
   static void needsToolkitUpdate(UpdateCallback callback) {
     String ver = "";
     WebSocket.getInfo((str) async {
-      if(str == null) {
+      if(str == null || str["toolkit_version"] == null) {
         callback(false, "", "");
         return;
       }
-      if(str["toolkit_version"] == "NONE") {
-        callback(true, "NONE", "");
-        return;
-      }
+
       int localVersion = int.parse(str["toolkit_version"].replaceAll(".",""));
       int serverVersion = 0;
       final response = await http.get('https://raw.githubusercontent.com/WesBosch/brunch-toolkit/main/brunch-toolkit');
@@ -37,13 +34,17 @@ class Updating extends StatefulWidget {
           serverVersion=int.parse(s.replaceAll("TOOLVER=\"v", "").replaceAll(RegExp(r'."'), "").replaceAll(".", ""));
         }
       }
-      callback(localVersion <= serverVersion, "v"+str["toolkit_version"], ver);
+      if(str["toolkit_version"] == "NONE") {
+        callback(true, "NONE", ver);
+        return;
+      }
+      callback(localVersion < serverVersion, "v"+str["toolkit_version"], ver);
     });
   }
 
   static void needsFrameworkUpdate(UpdateCallback callback) {
     WebSocket.getInfo((str) async {
-      if(str == null) {
+      if(str == null || str["framework_version"] == null) {
         callback(false, "", "");
         return;
       }
@@ -67,7 +68,7 @@ class Updating extends StatefulWidget {
       final response = await http.get('https://api.github.com/repos/brunch-tools/daemon/releases/latest');
       int localVersion = int.parse(str["daemon_version"].replaceAll(".",""));
       int serverVersion = int.parse(jsonDecode(response.body)["name"].replaceFirst("Release v","").replaceAll(".",""));
-      callback(localVersion <= serverVersion, "v"+str["daemon_version"], jsonDecode(response.body)["name"].replaceFirst("Release ",""));
+      callback(localVersion < serverVersion, "v"+str["daemon_version"], jsonDecode(response.body)["name"].replaceFirst("Release ",""));
     });
   }
 
@@ -239,7 +240,7 @@ class UpdatingState extends State<Updating> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarFactory.getBar(context, "Update Center", "Manage Brunch Tools Components From Here!"),
+      appBar: AppBarFactory.getBar(context, "Update Center", "Manage Brunch Components From Here!"),
       body: AppBarFactory.getPagePadding(
         Center(
           child: GridView.count(
@@ -269,7 +270,7 @@ class UpdatingState extends State<Updating> {
               Navigator.of(context).pop(),
             } else {
               setState(() {
-                _toShow = Text("The daemon has automatically began to\nupdate, this should only take a few minutes.\n\nSit back and relax, you'll be taken back to your previous\nscreen when a connection is available.", overflow: TextOverflow.visible, textAlign: TextAlign.left, style: Theme.of(context).textTheme.headline5);
+                _toShow = Text("The daemon has automatically began to update, this should only take a few minutes.\n\nSit back and relax, you'll be taken back to your previous screen when a connection is available.", overflow: TextOverflow.visible, textAlign: TextAlign.left, style: Theme.of(context).textTheme.headline5);
                 beginWithToolkit();
               }),
             }

@@ -81,6 +81,7 @@ class SetupPageState extends State<SetupPage> {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Uh oh! This feature isn't available yet!"),))
           }
         },
+        currentIndex: 1,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.help_outline),
